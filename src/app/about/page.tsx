@@ -7,7 +7,6 @@ import Navigation from '@/components/Navigation';
 
 export default function About() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const aboutLetters = ['A', 'B', 'O', 'U', 'T'];
 
   return (
     <>
@@ -45,27 +44,14 @@ export default function About() {
           </button>
         </header>
 
-        {/* Main Content - Split Layout */}
-        <section className="relative" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)' }}>
-          {/* Large ABOUT Heading - Full Bleed Overlay (desktop) */}
-          <div className="hidden lg:block pointer-events-none absolute inset-x-0 z-50" style={{ top: 'clamp(6rem, 12vw, 10rem)', paddingLeft: 'clamp(13px, 3vw, 30px)', paddingRight: 'clamp(13px, 3vw, 30px)' }}>
-            <div className="text-charcoal font-normal flex justify-between w-full" aria-hidden="true" style={{ fontFamily: 'var(--font-helvetica)', fontSize: 'clamp(6rem, 12vw, 15rem)', lineHeight: '0.9', letterSpacing: '-0.02em' }}>
-              {aboutLetters.map((ch) => (
-                <span key={ch} className="block">
-                  {ch}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col lg:flex-row lg:items-start relative" style={{ gap: 'clamp(2rem, 4vw, 4rem)', paddingLeft: 'clamp(13px, 3vw, 30px)', paddingRight: 'clamp(13px, 3vw, 30px)' }}>
-            {/* Left Side - Content */}
-            <div className="w-full lg:w-1/2 relative z-10">
-              {/* Mobile/Tablet heading in flow */}
-              <h1 className="text-charcoal font-normal mb-8 lg:hidden" style={{ fontFamily: 'var(--font-helvetica)', fontSize: 'clamp(4rem, 12vw, 8rem)', lineHeight: '0.9', letterSpacing: '-0.02em' }}>ABOUT</h1>
-
+        {/* Hero-style Section with Overlay Text - Similar to Homepage */}
+        <section className="relative min-h-screen overflow-hidden">
+          {/* Split Content Container */}
+          <div className="flex flex-col lg:flex-row min-h-screen" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)' }}>
+            {/* Left Side - Text Content */}
+            <div className="w-full lg:w-1/2 bg-newsprint" style={{ paddingLeft: 'clamp(13px, 3vw, 30px)', paddingRight: 'clamp(13px, 3vw, 30px)', paddingBottom: 'clamp(3rem, 6vw, 5rem)' }}>
               {/* Bio Paragraph 1 */}
-              <div className="mb-6 max-w-xl">
+              <div className="mb-6 max-w-xl" style={{ marginTop: 'clamp(8rem, 15vw, 12rem)' }}>
                 <p className="text-charcoal leading-normal text-justify" style={{ fontFamily: 'var(--font-times)', fontSize: 'clamp(0.75rem, 1vw, 1.17rem)', lineHeight: '1.4' }}>
                   <span className="font-bold">Reagan Matthew</span> is a Creative director and filmmaker with a background in hospitality and design, telling stories at the intersection of food, culture, and visual art.is a Creative director and filmmaker with a background in hospitality and design, telling stories at the intersection of food, culture, and visual art.is a Creative director and filmmaker with a background in hospitality and design, telling stories at the intersection of food, culture, and visual art.
                 </p>
@@ -91,9 +77,9 @@ export default function About() {
               </Link>
             </div>
 
-            {/* Right Side - Hero Image (Not Full Bleed) */}
-            <div className="w-full lg:w-1/2 mt-12 lg:mt-0 relative z-10">
-              <div className="relative w-full" style={{ aspectRatio: '9/16', minHeight: '600px' }}>
+            {/* Right Side - Hero Image */}
+            <div className="w-full lg:w-1/2 relative" style={{ minHeight: '60vh' }}>
+              <div className="relative w-full" style={{ minHeight: '60vh', height: '100%' }}>
                 <Image
                   src="/assets/about-hero.png"
                   alt="Reagan Matthew"
@@ -105,7 +91,14 @@ export default function About() {
               </div>
             </div>
           </div>
-          
+
+          {/* Large ABOUT Heading - Full Bleed Overlay on top of everything */}
+          <div className="absolute z-10 left-0 right-0" style={{ top: 'clamp(6rem, 12vw, 10rem)', paddingLeft: 'clamp(13px, 3vw, 30px)', paddingRight: 'clamp(13px, 3vw, 30px)' }}>
+            <h1 className="text-charcoal font-normal justify-spread" style={{ fontFamily: 'var(--font-helvetica)', fontSize: 'clamp(3rem, 11vw, 15rem)', lineHeight: '0.9', letterSpacing: '-0.02em', maxWidth: '100%' }}>
+              ABOUT
+            </h1>
+          </div>
+
           {/* Copyright Text - Over Image on Desktop */}
           <div className="hidden lg:block absolute top-0 right-0 text-newsprint font-medium z-20" style={{ paddingRight: 'clamp(13px, 3vw, 30px)', paddingTop: 'clamp(6rem, 12vw, 10rem)', fontFamily: 'var(--font-helvetica)', fontSize: 'clamp(0.8rem, 1.2vw, 1.4rem)' }}>
             Reagan Matthew © 2025

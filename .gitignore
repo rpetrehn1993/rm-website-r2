@@ -116,7 +116,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public - NOT ignored in Next.js (we need static assets)
 
 # Storybook build outputs
 .out
@@ -129,6 +129,22 @@ temp/
 # Figma exports (if you download assets locally)
 figma-exports/
 design-assets/
+
+# Large source files (videos, PDFs, design files)
+*.zip
+*.ai
+*.pdf
+*.mov
+*.MP4
+*.mp4
+# Exclude large Catalyst source folders
+/public/Catalyst/Edited\ Reels/
+/public/Catalyst/Stills\ Selects/
+/public/Catalyst/Catalyst\ Branded/Motion/
+/public/Catalyst/Motion\ screengrabs/
+/public/Catalyst/drive-download-*/
+# But keep essential website assets
+!public/assets/**
 
 # Performance monitoring
 .performance/
