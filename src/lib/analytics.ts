@@ -1,6 +1,10 @@
 // Analytics and performance monitoring utilities
 
-export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
+export const trackEvent = (
+  eventName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  properties?: Record<string, any>
+) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, properties);
   }
@@ -30,6 +34,7 @@ export const measurePerformance = () => {
 // Declare gtag for TypeScript
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     gtag: (...args: any[]) => void;
   }
 }

@@ -11,10 +11,13 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "analyze": "ANALYZE=true next build",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check-assets": "node scripts/check-assets.mjs",
+    "sync-figma": "node scripts/sync-figma-tokens.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",

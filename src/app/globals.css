@@ -3,13 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --newsprint: #f0f0ee;
+  --charcoal: #1e1e1e;
+  --accent-red: #e63946;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-newsprint: var(--newsprint);
+  --color-charcoal: var(--charcoal);
+  --color-accent-red: var(--accent-red);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-times: "Times New Roman", Times, serif;
+  --font-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +30,61 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-helvetica);
+}
+
+
+
+/* Auto-generated from Figma - DO NOT EDIT MANUALLY */
+/* Generated on: 2025-10-23T21:54:38.502Z */
+
+/* Typography tokens from Figma */
+/* --font-times-new-roman-20: Times New Roman 20px 400 */
+/* --font-times-new-roman-40: Times New Roman 40px 700 */
+/* --font-times-new-roman-32: Times New Roman 32px 700 */
+/* --font-times-new-roman-24: Times New Roman 24px 400 */
+/* --font-helvetica-neue-128: Helvetica Neue 128px 400 */
+/* --font-helvetica-neue-64: Helvetica Neue 64px 400 */
+/* --font-helvetica-neue-32: Helvetica Neue 32px 700 */
+/* --font-helvetica-neue-24: Helvetica Neue 24px 500 */
+/* --font-helvetica-neue-36: Helvetica Neue 36px 500 */
+/* --font-helvetica-neue-20: Helvetica Neue 20px 400 */
+/* --font-helvetica-neue-16: Helvetica Neue 16px 500 */
+/* --font-helvetica-neue-22.5: Helvetica Neue 22.5px 700 */
+/* --font-degular-variable-30: Degular Variable 30px 740 */
+/* --font-times-new-roman-64: Times New Roman 64px 400 */
+/* --font-helvetica-neue-22.501800537109375: Helvetica Neue 22.501800537109375px 500 */
+/* --font-helvetica-neue-40: Helvetica Neue 40px 500 */
+/* --font-helvetica-neue-48: Helvetica Neue 48px 400 */
+/* --font-times-new-roman-36: Times New Roman 36px 400 */
+/* --font-helvetica-neue-30: Helvetica Neue 30px 500 */
+/* --font-times-new-roman-22.5: Times New Roman 22.5px 400 */
+/* --font-degular-variable-64: Degular Variable 64px 740 */
+/* --font-helvetica-neue-12: Helvetica Neue 12px 700 */
+/* --font-degular-variable-50: Degular Variable 50px 520 */
+
+/* End auto-generated section */
+
+/* Custom utility classes */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* Force last line justification for single-line headings (e.g., ABOUT) */
+  .justify-spread {
+    text-align: justify;
+    text-align-last: justify;
+    /* Best-effort inter-character justification across browsers */
+    text-justify: inter-character;
+    -ms-text-justify: inter-ideograph;
+  }
+  .justify-spread::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+  }
 }

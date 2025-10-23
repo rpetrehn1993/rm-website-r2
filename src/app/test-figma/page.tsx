@@ -2,9 +2,15 @@
 
 import { useState } from 'react';
 
+interface FigmaTestResult {
+  error?: string;
+  file?: { name: string };
+  tokens?: unknown;
+}
+
 export default function TestFigma() {
   const [fileKey, setFileKey] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<FigmaTestResult | null>(null);
   const [loading, setLoading] = useState(false);
 
   const testFigmaConnection = async () => {
@@ -31,7 +37,7 @@ export default function TestFigma() {
         });
       }
     } catch (error) {
-      setResult({ error: error.message });
+      setResult({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
     } finally {
       setLoading(false);
     }
@@ -79,10 +85,12 @@ export default function TestFigma() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900">File Name:</h3>
-                  <p className="text-gray-600">{result.file.name}</p>
-                </div>
+                {result.file && (
+                  <div>
+                    <h3 className="font-medium text-gray-900">File Name:</h3>
+                    <p className="text-gray-600">{result.file.name}</p>
+                  </div>
+                )}
                 <div>
                   <h3 className="font-medium text-gray-900">Design Tokens:</h3>
                   <pre className="bg-gray-100 p-4 rounded-md text-sm overflow-auto max-h-96">

@@ -42,8 +42,16 @@ export const getFigmaImages = async (fileKey: string, nodeIds: string[]) => {
   }
 };
 
-export const extractDesignTokens = (figmaFile: any) => {
-  const tokens = {
+interface DesignTokens {
+  colors: Record<string, string>;
+  typography: Record<string, { fontFamily: string; fontSize?: number; fontWeight?: number }>;
+  spacing: Record<string, string>;
+  borderRadius: Record<string, string>;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const extractDesignTokens = (figmaFile: any): DesignTokens => {
+  const tokens: DesignTokens = {
     colors: {},
     typography: {},
     spacing: {},
@@ -52,14 +60,16 @@ export const extractDesignTokens = (figmaFile: any) => {
 
   // Extract colors from styles
   if (figmaFile.styles) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.values(figmaFile.styles).forEach((style: any) => {
-      if (style.styleType === 'FILL') {
+      if (style.styleType === 'FILL' && style.name) {
         tokens.colors[style.name] = style.description || '';
       }
     });
   }
 
   // Extract typography from text nodes
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const extractTypography = (node: any) => {
     if (node.type === 'TEXT' && node.style) {
       const fontFamily = node.style.fontFamily;
@@ -67,7 +77,8 @@ export const extractDesignTokens = (figmaFile: any) => {
       const fontWeight = node.style.fontWeight;
       
       if (fontFamily) {
-        tokens.typography[`${fontFamily}-${fontSize || 'base'}`] = {
+        const key = `${fontFamily}-${fontSize || 'base'}`;
+        tokens.typography[key] = {
           fontFamily,
           fontSize,
           fontWeight,
