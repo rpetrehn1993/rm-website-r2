@@ -1,13 +1,29 @@
-// Figma API integration for design system
-import { FigmaApi } from 'figma-api';
+// Figma REST API integration for design system
 
-const figma = new FigmaApi({
-  personalAccessToken: process.env.FIGMA_ACCESS_TOKEN || '',
-});
+const FIGMA_API_BASE = 'https://api.figma.com/v1';
+
+const makeFigmaRequest = async (endpoint: string) => {
+  const token = process.env.FIGMA_ACCESS_TOKEN;
+  if (!token) {
+    throw new Error('FIGMA_ACCESS_TOKEN is not set');
+  }
+
+  const response = await fetch(`${FIGMA_API_BASE}${endpoint}`, {
+    headers: {
+      'X-Figma-Token': token,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Figma API error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
 
 export const getFigmaFile = async (fileKey: string) => {
   try {
-    const file = await figma.getFile(fileKey);
+    const file = await makeFigmaRequest(`/files/${fileKey}`);
     return file;
   } catch (error) {
     console.error('Error fetching Figma file:', error);
@@ -17,11 +33,8 @@ export const getFigmaFile = async (fileKey: string) => {
 
 export const getFigmaImages = async (fileKey: string, nodeIds: string[]) => {
   try {
-    const images = await figma.getImage(fileKey, {
-      ids: nodeIds,
-      format: 'svg',
-      scale: 2,
-    });
+    const ids = nodeIds.join(',');
+    const images = await makeFigmaRequest(`/images/${fileKey}?ids=${ids}&format=svg&scale=2`);
     return images;
   } catch (error) {
     console.error('Error fetching Figma images:', error);
@@ -44,6 +57,31 @@ export const extractDesignTokens = (figmaFile: any) => {
         tokens.colors[style.name] = style.description || '';
       }
     });
+  }
+
+  // Extract typography from text nodes
+  const extractTypography = (node: any) => {
+    if (node.type === 'TEXT' && node.style) {
+      const fontFamily = node.style.fontFamily;
+      const fontSize = node.style.fontSize;
+      const fontWeight = node.style.fontWeight;
+      
+      if (fontFamily) {
+        tokens.typography[`${fontFamily}-${fontSize || 'base'}`] = {
+          fontFamily,
+          fontSize,
+          fontWeight,
+        };
+      }
+    }
+    
+    if (node.children) {
+      node.children.forEach(extractTypography);
+    }
+  };
+
+  if (figmaFile.document) {
+    extractTypography(figmaFile.document);
   }
 
   return tokens;

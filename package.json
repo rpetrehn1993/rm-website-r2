@@ -30,7 +30,6 @@
     "eslint-config-next": "16.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "figma-api": "^2.1.0-beta",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
